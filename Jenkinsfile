@@ -13,7 +13,7 @@ pipeline {
             steps {
                 sh '''
                     if ! grep -q "${TARGET_HOST}" /etc/hosts; then
-                        echo "127.0.0.1 ${TARGET_HOST} www.webwolf.local" | sudo tee -a /etc/hosts
+                        echo "127.0.0.1 ${TARGET_HOST} www.webwolf.local" >> /etc/hosts
                     fi
                 '''
             }
