@@ -9,7 +9,8 @@ pipeline {
         ZAP_IMAGE = 'ghcr.io/zaproxy/zaproxy:stable'
         TZ = 'America/Boise'
     }
-  
+
+    stages {
         stage('Set Up /etc/hosts') {
             steps {
                 sh '''
