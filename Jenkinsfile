@@ -9,16 +9,6 @@ pipeline {
     }
 
     stages {
-        stage('Set Up /etc/hosts') {
-            steps {
-                sh '''
-                    if ! grep -q "${TARGET_HOST}" /etc/hosts; then
-                        echo "127.0.0.1 ${TARGET_HOST} www.webwolf.local" >> /etc/hosts
-                    fi
-                '''
-            }
-        }
-
         stage('Run WebGoat in Docker') {
             steps {
                 sh '''
