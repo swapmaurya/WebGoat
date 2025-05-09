@@ -7,20 +7,22 @@ pipeline {
     }
 
     stages {
-        stage('Install WebGoat') {
+        stage('Check Docker status') {
             steps {
                 sh '''
-                    ls
-                    ./mvnw clean install
+                    systemctl status docker
+                    systemctl start docker
+                    systemctl enable docker
+                    systemctl status docker
                 '''
             }
         }
 
-        stage('Print') {
+        stage('Install WebGoat on Docker') {
             steps {
                 sh '''
-                    echo "swaptest"
-                    ls
+                    echo "lets start installation"
+                    docker run -it -p 127.0.0.1:8080:8080 -p 127.0.0.1:9090:9090 webgoat/webgoat
                 '''
             }
         }
