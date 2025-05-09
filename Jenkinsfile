@@ -30,7 +30,6 @@ pipeline {
     post {
         always {
             echo 'Cleaning up Docker containers...'
-            sh 'docker stop webgoat || true'
         }
     }
 }
