@@ -10,7 +10,7 @@ pipeline {
         stage('Install WebGoat') {
             steps {
                 sh '''
-                    cd WebGoat
+                    ls
                     ./mvnw clean install
                 '''
             }
