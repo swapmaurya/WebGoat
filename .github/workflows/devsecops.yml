@@ -20,8 +20,12 @@ jobs:
 
       - name: Run WebGoat container
         run: |
-          docker run -p 127.0.0.1:8080:8080 -p 127.0.0.1:9090:9090 webgoat/webgoat
+          docker run -d -p 127.0.0.1:8080:8080 -p 127.0.0.1:9090:9090 webgoat/webgoat
           sleep 10
+          
+      - name: Wait for WebGoat to be ready
+        run: |
+          curl --fail http://127.0.0.1:8080/WebGoat || (echo "WebGoat not responding" && exit 1)
 
       - name: Run ZAP Full Scan
         id: zap
