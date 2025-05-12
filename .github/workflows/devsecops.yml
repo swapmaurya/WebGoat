@@ -23,7 +23,7 @@ jobs:
       - name: Wait for WebGoat to be ready
         run: |
           echo "Waiting for WebGoat..."
-          until curl -s http://localhost:8080/WebGoat/login | grep -q 'WebGoat'; do sleep 5; done
+          until curl -s http://webgoat:8080/WebGoat/login | grep -q 'WebGoat'; do sleep 5; done
 
       - name: Run ZAP Authenticated Full Scan
         uses: zaproxy/action-full-scan@v0.12.0
