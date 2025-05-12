@@ -1,0 +1,30 @@
+<context>
+  <name>WebGoatContext</name>
+  <includeRegex>http://webgoat:8080/WebGoat/.*</includeRegex>
+
+  <authentication>
+    <method>formBasedAuthentication</method>
+    <loginUrl>http://webgoat:8080/WebGoat/login</loginUrl>
+    <loginRequestData>username={%username%}&amp;password={%password%}</loginRequestData>
+  </authentication>
+
+  <users>
+    <user>
+      <name>webgoat-user</name>
+      <credentials>
+        <username>guest</username>
+        <password>guest</password>
+      </credentials>
+      <enabled>true</enabled>
+    </user>
+  </users>
+
+  <sessionManagement>
+    <method>cookieBasedSessionManagement</method>
+  </sessionManagement>
+
+  <authorization>
+    <loggedInIndicator>Welcome</loggedInIndicator>
+    <loggedOutIndicator>Login</loggedOutIndicator>
+  </authorization>
+</context>
