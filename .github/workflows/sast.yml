@@ -1,0 +1,33 @@
+name: KDT CI
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup KDT
+        run: |
+          curl -sSL https://cli.kondukto.io | sh
+          echo "KONDUKTO_HOST=${{ secrets.KONDUKTO_HOST }}" >> $GITHUB_ENV
+          echo "KONDUKTO_TOKEN=${{ secrets.KONDUKTO_TOKEN }}" >> $GITHUB_ENV
+
+      - name: Run a SAST scan
+        run: |
+          kdt scan \
+            -p ${{ github.event.repository.name }} \
+            -t gosec \
+            -b ${{ github.ref }}
+
+      - name: Run a CS scan
+        run: |
+          kdt scan \
+            -p ${{ github.event.repository.name }} \
+            -t trivy \
+            --image=ubuntu:latest \
+            -b ${{ github.ref }}
