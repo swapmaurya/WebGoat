@@ -1,0 +1,53 @@
+name: ZAP Scan for WebGoat
+
+on: [push]
+
+jobs:
+  zap_scan:
+    runs-on: ubuntu-latest
+    services:
+      webgoat:
+        image: webgoat/webgoat
+        ports:
+          - 8080:8080
+        options: >-
+          --health-cmd "curl -f http://localhost:8080/WebGoat" 
+          --health-interval 10s 
+          --health-timeout 5s 
+          --health-retries 5
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Wait for WebGoat to be ready
+        run: |
+          echo "Waiting for WebGoat..."
+          until curl -s http://localhost:8080/WebGoat/login | grep -q 'WebGoat'; do sleep 5; done
+
+      - name: Run ZAP Authenticated Full Scan
+        uses: zaproxy/action-full-scan@v0.12.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          target: 'http://webgoat:8080/WebGoat'
+          context_file: '.zap/context.context'
+          user: 'webgoat-user'
+          cmd_options: '-a'
+          
+      - name: Set up Git credentials (for pushing scan results)
+        run: |
+          git config --global user.name 'swapmaurya'
+          git config --global user.email 'swapmaurya20@gmail.com'
+          
+      - name: Copy ZAP results to output folder
+        run: |
+          mkdir -p output
+          cp report_html.html output/
+
+      - name: Commit and Push ZAP reports
+        run: |
+          git add output/
+          git commit -m "Add ZAP scan reports for WebGoat [skip ci]" || echo "No changes to commit"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
