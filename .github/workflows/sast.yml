@@ -14,10 +14,10 @@ jobs:
           curl -sSL https://cli.kondukto.io | sh
           echo "KONDUKTO_HOST=${{ secrets.KONDUKTO_HOST }}" >> $GITHUB_ENV
           echo "KONDUKTO_TOKEN=${{ secrets.KONDUKTO_TOKEN }}" >> $GITHUB_ENV
+          kdt ping -a
 
       - name: Run a SAST scan
         run: |
-          kdt ping -a
           kdt scan \
             -p ${{ github.event.repository.name }} \
             -t gosec \
