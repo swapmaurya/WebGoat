@@ -17,6 +17,7 @@ jobs:
 
       - name: Run a SAST scan
         run: |
+          kdt ping -a
           kdt scan \
             -p ${{ github.event.repository.name }} \
             -t gosec \
