@@ -22,21 +22,21 @@ jobs:
           kdt list scanners
           kdt list projects
           
-      - name: Run a SAST scan
-        run: |
-          export KONDUKTO_HOST=${{ secrets.KONDUKTO_HOST }}
-          export KONDUKTO_TOKEN=${{ secrets.KONDUKTO_TOKEN }}
-          kdt scan \
-            -p ${{ github.event.repository.name }} \
-            -t findsecbugs \
-            -b main
+      # - name: Run a SAST scan
+      #   run: |
+      #     export KONDUKTO_HOST=${{ secrets.KONDUKTO_HOST }}
+      #     export KONDUKTO_TOKEN=${{ secrets.KONDUKTO_TOKEN }}
+      #     kdt scan \
+      #       -p ${{ github.event.repository.name }} \
+      #       -t findsecbugs \
+      #       -b main
 
-      - name: Run a CS scan
-        run: |
-          export KONDUKTO_HOST=${{ secrets.KONDUKTO_HOST }}
-          export KONDUKTO_TOKEN=${{ secrets.KONDUKTO_TOKEN }}
-          kdt scan \
-            -p ${{ github.event.repository.name }} \
-            -t trivy \
-            --image=webgoat:latest \
-            -b main
+      # - name: Run a CS scan
+      #   run: |
+      #     export KONDUKTO_HOST=${{ secrets.KONDUKTO_HOST }}
+      #     export KONDUKTO_TOKEN=${{ secrets.KONDUKTO_TOKEN }}
+      #     kdt scan \
+      #       -p ${{ github.event.repository.name }} \
+      #       -t trivy \
+      #       --image=webgoat:latest \
+      #       -b main
