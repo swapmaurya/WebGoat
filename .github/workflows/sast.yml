@@ -29,6 +29,15 @@ jobs:
       #       -p ${{ github.event.repository.name }} \
       #       -t dependencycheck \
       #       -b main
+  
+      - name: Run a SAST scan
+        run: |
+          export KONDUKTO_HOST=${{ secrets.KONDUKTO_HOST }}
+          export KONDUKTO_TOKEN=${{ secrets.KONDUKTO_TOKEN }}
+          kdt scan \
+            -p ${{ github.event.repository.name }} \
+            -t semgrep \
+            -b main
           
       # - name: Run a SAST scan
       #   run: |
