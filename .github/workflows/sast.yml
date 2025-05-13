@@ -38,5 +38,5 @@ jobs:
           kdt scan \
             -p ${{ github.event.repository.name }} \
             -t trivy \
-            --image=ubuntu:latest \
+            --image=webgoat:latest \
             -b main
