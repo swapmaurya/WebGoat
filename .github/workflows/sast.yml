@@ -17,6 +17,7 @@ jobs:
         run: |
           export KONDUKTO_HOST=${{ secrets.KONDUKTO_HOST }}
           export KONDUKTO_TOKEN=${{ secrets.KONDUKTO_TOKEN }}
+          kdt list scanners
           kdt scan \
             -p ${{ github.event.repository.name }} \
             -t gosec \
