@@ -12,8 +12,8 @@ jobs:
       - name: Setup KDT
         run: |
           curl -sSL https://cli.kondukto.io | sh
-          echo "KONDUKTO_HOST=${{ secrets.KONDUKTO_HOST }}" >> $GITHUB_ENV
-          echo "KONDUKTO_TOKEN=${{ secrets.KONDUKTO_TOKEN }}" >> $GITHUB_ENV
+          echo KONDUKTO_HOST=${{ secrets.KONDUKTO_HOST }}
+          echo KONDUKTO_TOKEN=${{ secrets.KONDUKTO_TOKEN }}
           kdt ping -a
 
       - name: Run a SAST scan
