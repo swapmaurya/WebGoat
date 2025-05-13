@@ -20,7 +20,7 @@ jobs:
           kdt list scanners
           kdt scan \
             -p ${{ github.event.repository.name }} \
-            -t gosec \
+            -t findsecbugs \
             -b ${{ github.ref }}
 
       - name: Run a CS scan
